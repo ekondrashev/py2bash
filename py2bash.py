@@ -17,8 +17,14 @@ class Visitor(ast.NodeVisitor):
 #         print(node.name)
 #         self.generic_visit(node)
     def visit_Module(self, e):
-        return '\n'.join(map(self.visit, e.body))
+        seq = map(self.visit, e.body)
+        return '\n'.join(seq)
     
+    def visit_Assign(self, e):
+        seq =e.targets + [e.value.n, ]
+        seq =  map(self.visit, seq)
+        return '%s=%s' % tuple(seq)
+
     def visit_For(self, e):
         pattern = '''for %s in %s
 do
@@ -34,6 +40,9 @@ done'''
             return '$%s' % e.id
         return e.id
 
+    def visit_int(self, e):
+        return str(e)
+    
     def visit_Num(self, e):
         return e.n
 
@@ -43,7 +52,7 @@ done'''
             start, end = 0, range_[0]
         else:
             start, end = range_
-        return '{%d..%d}' % (start, end - 1)
+        return '{%s..%s}' % (start, end - 1)
 
     def handle_func(self, e):
         handle = {
@@ -60,8 +69,12 @@ done'''
         raise NotImplementedError('visit_Call: %s' % ast.dump(e))
     
     def visit_Print(self, e):
-        r = 'echo %s' % ' '.join(map(self.visit, e.values))
+        seq = map(self.visit, e.values)
+        r = 'echo %s' % ' '.join(seq)
         return r
+    
+    def visit_Str(self, e):
+        return '"%s"' % e.s
     
 
 def py2bash(pycode):
