@@ -39,7 +39,11 @@ done'''
 
     def handle_range(self, e):
         range_ = tuple(map(self.visit, e.args))
-        return '{%d..%d}' % range_
+        if len(range_) == 1:
+            start, end = 0, range_[0]
+        else:
+            start, end = range_
+        return '{%d..%d}' % (start, end - 1)
 
     def handle_func(self, e):
         handle = {
