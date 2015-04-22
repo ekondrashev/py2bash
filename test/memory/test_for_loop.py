@@ -51,6 +51,17 @@ do
 done'''
         self.assertEquals(expected, actual)
 
+    def test_descending(self):
+        actual = py2bash('''end=5
+for i in range(end, 0, -2):
+    print i''', Visitor())
+        expected = '''end=5
+for ((i=0;i<=$(($end-1));i+=2))
+do
+    echo $i
+done'''
+        self.assertEquals(expected, actual)
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
