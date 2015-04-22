@@ -4,7 +4,8 @@ Created on Jan 10, 2015
 @author: ekondrashev
 '''
 import unittest
-from py2bash import py2bash
+from main import py2bash
+from py2bash.optimized.speed.node import Visitor
 
 
 class Test(unittest.TestCase):
@@ -12,7 +13,7 @@ class Test(unittest.TestCase):
 
     def test_for_loop_seq_both_boundaries(self):
         actual = py2bash('''for i in range(0, 5):
-    print i''')
+    print i''', Visitor())
         expected = '''for i in {0..4}
 do
     echo $i
@@ -21,8 +22,19 @@ done'''
     
     def test_for_loop_seq_end_only(self):
         actual = py2bash('''for i in range(5):
-    print i''')
+    print i''', Visitor())
         expected = '''for i in {0..4}
+do
+    echo $i
+done'''
+        self.assertEquals(expected, actual)
+    
+    def test_for_loop_seq_var_as_end(self):
+        actual = py2bash('''end=5
+for i in range(end):
+    print i''', Visitor())
+        expected = '''end=5
+for i in $(eval echo {0..$(($end-1))})
 do
     echo $i
 done'''
