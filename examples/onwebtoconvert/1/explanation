@@ -1,0 +1,40 @@
+This Python script is very clear in what its supposed to do.
+
+1) import random 
+This is a library to generate random numbers
+In bash , you can use the RANDOM env variable 
+2)
+
+Code:
+NTRIALS = 10000
+matches = 0
+
+For these, they are the same as declaring shell variables
+3)
+
+Code:
+for trial in range(NTRIALS): # Do a bunch of trials...
+    taken = {} 
+    for person in range(NPEOPLE): 
+        day = random.randint(0, 365) 
+        if day in taken:
+            matches += 1 
+            break # No need to look for more than one.
+        taken[day] = 1
+
+range(NTRIALS) will give you a range of values from 0 to 9999
+so for trial in range(NTRIALs) is a for loop to generate these numbers. So this for loop will iterate 10000 times, starting from count 0.
+matches+=1 is the same as matches = matches + 1, which in shell, you can use something like this (or other methods)
+
+Code:
+x=`echo "$x + 1" | bc`
+
+taken = {} declares a dictionary, or a lookup table.
+random.randint(0,365) will generate a random number in the range from 0 to 365. taken[day] = 1 means keep that random day number in the dictionary
+with the value of 1. 
+taken will now contain for example:
+
+Code:
+taken = { 102:1 } # 102 generated from random.randint()
+
+http://www.unix.com/shell-programming-and-scripting/34637-python-code-convert-ksh-sh.html
