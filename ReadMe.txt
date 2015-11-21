@@ -1,4 +1,4 @@
-﻿# Purpose of a project.
+# Purpose of a project.
 The project aims to create a simple and convenient tool for converting scripts written in Python, in a sequence of bash commands.
 
 # Features supported(for, sequence, if-else, etc).
