@@ -25,4 +25,4 @@ Optional arguments:
 Python 2.7.9
 
 # Reference.
-[Python ast module usage examples](http://stackoverflow.com/questions/1515357/simple-example-of-how-to-use-ast-nodevisitor "Python ast module usage examples")
+[Python ast module usage examples](http://stackoverflow.com/questions/1515357/simple-example-of-how-to-use-ast-nodevisitor)
